@@ -4,7 +4,7 @@ import './elements/song-item.js'
 import {displaySection, activateLink} from './helpers.js'
 
 import {displayArtists} from './sections/artists.js'
-import {displayArtistSongs, displaySearchSongs, displayFavoriteSongs} from './sections/songs.js'
+import {displayArtistSongs, displaySearchSongs, displayFavoriteSongs, displaySongsLyrics} from './sections/songs.js'
 
 const routeur = () => {
   const hash = window.location.hash || '#home'
@@ -32,6 +32,11 @@ const routeur = () => {
         displaySection('artists')
         displayArtists()
       }
+    break;
+
+    case '#songs':
+      displaySection('lyrics')
+      displaySongsLyrics(hashs[1])
     break;
 
     case '#favorites':
