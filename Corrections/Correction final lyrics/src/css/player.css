@@ -1,0 +1,95 @@
+/********************************************************************************/
+/* player */
+
+
+#player {
+  /* le player est un container flex */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 400px; /* valeur arbitraire pour qu'il ne s'écarte pas trop */
+}
+
+#player #player-thumbnail {
+  align-self: center;
+  height: 200px;
+  width: 200px;
+  box-shadow: 0 0 15px #000;
+}
+
+#player #player-thumbnail img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* trick pour que l'image couvre toute la box. Voir lists.css ligne 162 */
+}
+
+#player #player-infos {
+  text-align: center;
+}
+
+#player #player-infos #player-infos-song * {
+  font-size: 1rem;
+}
+
+#player #player-infos #player-infos-artist * {
+  color: var(--grey-light);
+  font-size: 0.8rem;
+}
+
+#player #player-controls {
+  /* les contrôles sont dans un container flex */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+#player #player-controls .player-control {
+  margin: 0;
+  padding: 1.5rem;
+  background-color: var(--secondary-color);
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  line-height: 0; /* trick pour éviter le padding de texte fantôme... */
+  cursor: pointer;
+  transition: box-shadow var(--default-transition);
+}
+
+#player #player-controls .player-control:hover {
+  /* une jolie ombre bleue au survol */
+  box-shadow: 0 0 10px var(--primary-color-dark);
+}
+
+#player #player-controls .player-control .material-icons {
+  font-size: 3rem;
+  line-height: 3rem;
+  color: #fff;
+  transition: color var(--default-transition);
+}
+
+#player #player-controls .player-control:hover .material-icons {
+  /* bleu au survol */
+  color: var(--primary-color);
+}
+
+#player #player-controls .player-control.player-control-small .material-icons {
+  font-size: 2rem;
+  line-height: 2rem;
+}
+
+
+#player #player-progress #player-progress-bar {
+  width: 100%;
+  transition: box-shadow var(--default-transition);
+}
+
+#player #player-progress #player-progress-bar:hover {
+  box-shadow: 0 0 15px var(--primary-color-dark);
+}
+
+#player #player-progress #player-times {
+  display: flex;
+  justify-content: space-between;
+}

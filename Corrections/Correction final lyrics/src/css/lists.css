@@ -1,0 +1,176 @@
+/********************************************************************************/
+/* standard list */
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.list > * {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color var(--default-transition);
+}
+
+.list > *:hover {
+  background-color: var(--secondary-color);
+}
+
+.list > *:first-of-type {
+  /* on affiche un border top uniquement sur le premier élément */
+  border-top: 1px solid var(--border-color);
+}
+
+/* un lien est optionnellement supporté. Il doit donc prendre toute la place et devenir lui-même une flex box
+   pour agir comme le li de base */
+.list > * a {
+  /* toute la taille dispo du parent */
+  flex: 1;
+
+  /* devent une flex lui-même */
+  display: flex;
+
+  align-items: center;
+  text-decoration: none;
+}
+
+.list > * .list-item-title {
+  /* le titre prend toute la largeur dispo */
+  flex-grow: 1;
+}
+
+/********************************************************************************/
+/* button list */
+
+.button-list {
+  /* définition en tant que container flex */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.button-list a {
+  /* Chaque lien se sépare la taille dispo
+  Taille setée à 25%, car max 4 par ligne
+  */
+  flex: 0 0 calc(25% - 3rem); /* à cause du padding ajouté plus bas... 2 * 1.5rem */
+  /*
+  NB: la propriété flex est un raccourci pour "grow shrink basis".
+  Exemple:
+  flex: grow shrink basis;
+  flex: 1 0 100px;
+  ====> équivalent à :
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 100px;
+
+  ou aussi :
+  flex: 1;
+  ====> équivalent à :
+  flex-grow: 1;
+  flex-shrink: valeur par défaut;
+  flex-basis: valeur par défaut;
+   */
+
+  padding: 1.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: background-color var(--default-transition);
+
+  /* affichage d'un ellipsis */
+  white-space: nowrap; /* les espaces deviennent insécables  */
+  overflow: hidden; /* on cache ce qui dépasse */
+  text-overflow: ellipsis; /* on ajoute un ellipsis si ça dépasse */
+}
+
+.button-list a:hover {
+  background-color: var(--bg-color);
+}
+
+/* pour les mobiles 2 par ligne */
+@media (max-width: 768px) {
+  .button-list a {
+    flex-basis: calc(50% - 3rem);
+  }
+}
+
+/* pour les smartphones 3 par ligne */
+@media (min-width: 768px) and (max-width: 992px) {
+  .button-list a {
+    flex-basis: calc(33% - 3rem);
+  }
+}
+
+/********************************************************************************/
+/* artists list */
+
+.artist-list {
+  /* définition en tant que container flex */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.artist-list > * {
+  /* position relative permet de définir cet élément comme le nouveau point de référence pour les éléments enfants
+  en absolute. Sans cette ligne, "top: 0" sur un enfant serait résolu par rapport au body - en haut à gauche de la page.
+  Avec cette ligne, "top: 0" sur un enfant sera résolu au point de départ du parent
+  */
+  display: block;
+  position: relative;
+  height: 150px;
+  width: 150px;
+  color: #000;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+
+  /* affichage d'un ellipsis */
+  white-space: nowrap; /* les espaces deviennent insécables  */
+  overflow: hidden; /* on cache ce qui dépasse */
+  text-overflow: ellipsis; /* on ajoute un ellipsis si ça dépasse */
+}
+
+.artist-list a .artist-list-item-title {
+  /* on affiche en absolute pour pouvoir superposer le titre et l'image */
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  line-height: 150px;
+  text-shadow: 0 0 10px #000;
+}
+
+.artist-list a img {
+  /* on affiche en absolute pour pouvoir superposer le titre et l'image */
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  /* l'image va couvrir le parent et ne pas dépasser. A utiliser avec height/width 100%
+  Par défaut, cela va centrer l'image, possible de faire autrement avec object-position: axe-x axe-y */
+  object-fit: cover;
+
+  opacity: 0.4;
+  transition: all 0.5s ease-in-out;
+}
+
+.artist-list a:hover img {
+  opacity: 0.9;
+  transform: scale(1.1);
+}
+
+.artist-list:has(a:hover) a:not(:hover) img {
+  opacity: .1;
+}
