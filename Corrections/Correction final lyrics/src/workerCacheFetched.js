@@ -12,6 +12,15 @@ self.addEventListener('install', event => {
   event.waitUntil(preCache());
 });
 
+self.addEventListener('activate', event => {
+  const clearOldCache = async () => {
+    let keys = await caches.keys();
+    keys = keys.filter(key => key !== CACHE_VERSION);
+    return Promise.all(keys.map(key => caches.delete(key)));
+  }
+  event.waitUntil(clearOldCache());
+});
+
 self.addEventListener('fetch', event => {
   const fetchCacheFirst = async () => {
     const cache = await caches.open(CACHE_VERSION);
@@ -22,13 +31,4 @@ self.addEventListener('fetch', event => {
     return response;
   };
   event.respondWith(fetchCacheFirst());
-});
-
-self.addEventListener('activate', event => {
-  const clearOldCache = async () => {
-    let keys = await caches.keys();
-    keys = keys.filter(key => key !== CACHE_VERSION);
-    return Promise.all(keys.map(key => caches.delete(key)));
-  }
-  event.waitUntil(clearOldCache());
 });
