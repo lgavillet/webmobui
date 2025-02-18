@@ -1,0 +1,27 @@
+/********************************************************************************/
+/* buttons */
+
+/* pour utiliser un icône dans un bouton */
+button.icon-button {
+  margin: 0;
+  padding: 5px;
+  border: none;
+  background-color: transparent;
+  line-height: 0; /* trick pour éviter le padding de texte fantôme... */
+  cursor: pointer;
+}
+
+button.icon-button.align-right {
+  float: right;
+  line-height: 100%; /* trick pour l'alignement vertical... */
+}
+
+button.icon-button .material-icons {
+  /* la couleur de texte est animée */
+  transition: color var(--default-transition);
+}
+
+button.icon-button:hover .material-icons {
+  /* on change la couleur au survol */
+  color: var(--primary-color);
+}

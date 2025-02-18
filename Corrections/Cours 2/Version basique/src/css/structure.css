@@ -1,0 +1,203 @@
+/********************************************************************************/
+/* html body */
+
+/* Important, car par défaut, la hauteur est définie par la taille du contenu. Cela ne va donc pas jusqu'en bas
+   si pas assez de contenu */
+html, body {
+  height: 100%;
+}
+
+body {
+  /* body est un container flex en column */
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+}
+
+/********************************************************************************/
+/* header */
+
+header {
+  /* header est un container flex en ligne, enfants pourssés de chaque coté */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0; /* pas le droit de se réduire */
+
+  padding: 30px;
+  height: 60px;
+  /* un background dégradé... */
+  background: linear-gradient(0deg, var(--bg-color) 0%, var(--primary-color-dark) 150%); /* démarrer plus haut avec 150% */
+}
+
+header #logo {
+  text-decoration: none;
+  font-size: 2rem;
+  text-shadow: 0 0 10px #000;
+}
+
+header #logo.animated .material-icons {
+  /* on anime le logo s'il a la classe animated, avec les keyframes "logo-scale" définies plus bas */
+  /* l'idée sera d'ajouter cette classe quand une chanson est en cours de lecture */
+  animation-duration: 2s;
+  animation-name: logo-scale; /* voir plus bas */
+  animation-iteration-count: infinite;
+}
+
+header #logo .material-icons {
+  font-size: 3rem;
+  vertical-align: middle;
+  color: var(--primary-color);
+}
+
+header #search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+header #search-wrapper #search-input {
+  /* on affiche le search input en absolute. Cela permet de passer par-dessus le logo sur les petits écrans */
+  position:  absolute;
+  right: 4rem;
+
+  height: 3rem;
+  width: 200px;
+  padding: 1rem;
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  outline: none;
+  color: var(--secondary-color);
+
+  /* ici on utilise non pas display:none, mais visibility et opacity pour animer joliment l'apparition */
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--default-transition);
+}
+
+header #search-wrapper #search-input.active { /* avec la classe "active", on affiche */
+  visibility: visible;
+  opacity: 1;
+}
+
+header #search-wrapper #search-trigger .material-icons {
+  font-size: 3rem;
+  text-shadow: 0 0 10px #000;
+}
+
+/* animation pour le logo */
+/* https://developer.mozilla.org/fr/docs/Web/CSS/@keyframes */
+@keyframes logo-scale {
+  /* A un quart de l'animation, le logo sera agrandi d'1.15 fois sa taille */
+  25% {
+    transform: scale(1.15);
+  }
+
+  /* A trois quarts de l'animation, le logo sera réduit à 0.85 fois sa taille */
+  75% {
+    transform: scale(0.85);
+  }
+}
+
+/********************************************************************************/
+/* main */
+
+main {
+  /* contrairement aux autres enfants (header, footer), prendre tout l'espace restant */
+  flex-grow: 1;
+
+  padding: 50px 30px;
+  overflow-y: auto; /* permet de scroller au sein du main et non sur toute la page */
+}
+
+/********************************************************************************/
+/* sections */
+
+main section {
+  /* chaque section est un container flex en column */
+  flex-direction: column;
+
+  display: none;
+  margin: auto;
+  max-width: 1200px; /* max-width pour les gros écrans... éviter d'avoir une liste de 12'000px de large */
+}
+
+main section.active { /* avec la classe "active", on affiche la section */
+  display: flex;
+}
+
+#player-section {
+  height: 100%;
+  padding: 0;
+  /* cas special, le player prend tout l'espace et centre son contenu. Les autres section partent du haut */
+  justify-content: center;
+  align-items: center;
+}
+
+/********************************************************************************/
+/* footer */
+
+footer {
+  flex-shrink: 0; /* pas le droit de se réduire */
+
+  height: 100px;
+  background: var(--secondary-color);
+  border-top: 1px solid var(--border-color);
+}
+
+footer nav {
+  /* nav est de nouvau un container flex */
+  height: 100%;
+  display: flex;
+}
+
+footer nav a {
+  /* chaque lien prend 1 part de l'espace restant, ils font donc tous la même taille */
+  flex-grow: 1;
+
+  /*
+    Pour center l'icône, on refait une flex box à un seul enfant (l'icône). Le lien est donc le parent flex et l'icône
+    son unique enfant à centrer. Milles autres façons de faire ça... mais insistons sur les flexboxes :)
+    Le centering vertical en CSS peut être parfois tricky...
+
+    Avis perso et complètement subjectif: les flexboxes servent à centrer un ou plusieurs éléments, verticalement
+    et horizontalement. Autant s'en servir, plutôt que de bricoler des top: 50%; avec des marges négatives, par exemple.
+    Il y a aussi l'option vertical-align, mais qui ne marchera que dans certains cas... (si le parent a une taille fixe)
+  */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  text-align: center;
+  text-decoration: none;
+}
+
+/* tout ce qui est dans le lien du nav verra son changement de couleur animé  */
+footer nav a * {
+  transition: color var(--default-transition);
+}
+
+/* affiché en bleu quand la souris passe dessus ou quand il y a la classe "active" */
+footer nav a.active *,
+footer nav a:hover * {
+  color: var(--primary-color);
+}
+
+/* taille de l'icône */
+footer nav a .material-icons {
+  font-size: 2.5rem;
+}
+
+/* pour les petits écrans, on diminue la taille du footer et on cache le texte des icônes */
+@media (max-width: 768px) {
+  footer {
+    height: 80px;
+  }
+
+  footer nav a span:last-of-type {
+    display: none;
+  }
+}
