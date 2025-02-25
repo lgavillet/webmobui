@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Spotlified</title>
+
+    <!-- Bloquer le viewport - ici, c'est une app! Pas de zoom. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+
+    <!-- Fonts google pour les icônes et la police par défaut -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700&display=swap" />
+
+    <!-- Stylesheet principale -->
+    <link rel="stylesheet" href="css/index.css" />
+
+    <!-- Javascript principal -->
+    <!-- ...à quoi sert le defer ? :) -->
+    <script src="index.js" type="module" defer></script>
+  </head>
+  <body>
+    <header>
+      <!-- ajouter la classe "animated" à #logo pour animer l'icône -->
+      <a id="logo" href="/">
+        <span class="material-icons">graphic_eq</span>
+        Spotlified
+      </a>
+
+      <div id="search-wrapper">
+        <!-- ajouter la classe "active" à #search-input pour l'afficher-->
+        <input id="search-input" type="search" spellcheck="false" autocapitalize="false" autofocus />
+
+        <button id="search-trigger" class="icon-button" type="button">
+          <span class="material-icons">search</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- ajouter la classe "active" à une section pour l'afficher -->
+      <!-- exemple : <section id="home-section" class="active"> -->
+
+      <!------------------------------------------------------------------------------------------------------------>
+
+      <section id="home-section">
+        <h1 class="hero">Bienvenue</h1>
+        <h4>Playlists</h4>
+      </section>
+
+      <!------------------------------------------------------------------------------------------------------------>
+
+      <section id="player-section">
+        <!-- utiliser l'id de cet élément pour intéragir avec le vrai lecteur audio -->
+        <audio id="audio-player" controls></audio>
+
+        <div id="player">
+          <div id="player-thumbnail">
+            <!-- utiliser l'id de cet élément pour changer la cover de la chanson -->
+            <img src="http://placecats.com/200/300" id="player-thumbnail-image" />
+          </div>
+
+          <div id="player-infos">
+            <div id="player-infos-song">
+              <span class="material-icons">music_note</span>
+              <!-- utiliser l'id de cet élément pour changer le titre de la chanson -->
+              <span id="player-infos-song-title">
+                -
+              </span>
+            </div>
+
+            <div id="player-infos-artist">
+              <span class="material-icons">person</span>
+              <!-- utiliser l'id de cet élément pour changer le nom de l'artiste -->
+              <span id="player-infos-artist-name">
+                -
+              </span>
+            </div>
+          </div>
+
+          <div id="player-controls">
+            <!-- utiliser l'id de cet élément pour ajouter un listener pour le click sur précédent -->
+            <button type="button" class="player-control player-control-small" id="player-control-previous">
+              <span class="material-icons">skip_previous</span>
+            </button>
+            <!-- utiliser l'id de cet élément pour ajouter un listener pour le click sur play/pause -->
+            <button type="button" class="player-control" id="player-control-play">
+              <span class="material-icons">play_arrow</span>
+            </button>
+            <!-- utiliser l'id de cet élément pour ajouter un listener pour le click sur suivant -->
+            <button type="button" class="player-control player-control-small" id="player-control-next">
+              <span class="material-icons">skip_next</span>
+            </button>
+          </div>
+
+          <div id="player-progress">
+            <input type="range" id="player-progress-bar" />
+            <div id="player-times">
+              <!-- utiliser l'id de cet élément pour changer le temps écoulé -->
+              <span id="player-time-current">--:--</span>
+              <!-- utiliser l'id de cet élément pour changer la durée totale -->
+              <span id="player-time-duration">--:--</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!------------------------------------------------------------------------------------------------------------>
+
+      <section id="artists-section" class="active">
+        <h4>Artistes</h4>
+
+        <artist-list>
+          <a href="#">
+            <img src="http://placecats.com/200/300" />
+            <div class="artist-list-item-title">Kungs</div>
+          </a>
+
+          <a href="#">
+            <img src="http://placecats.com/200/300" />
+            <div class="artist-list-item-title">Kungs</div>
+          </a>
+
+          <a href="#">
+            <img src="http://placecats.com/200/300" />
+            <div class="artist-list-item-title">Kungs</div>
+          </a>
+        </artist-list>
+      </section>
+
+      <!------------------------------------------------------------------------------------------------------------>
+
+      <section id="list-section">
+        <h4>
+          Artistes > Kungs
+        </h4>
+
+        <div class="list">
+          <div>
+            <a href="#">
+              <div class="list-item-title">Never going home</div>
+              <div class="list-item-actions">
+                <button type="button" class="icon-button favorite-button ">
+                  <span class="material-icons">playlist_add</span>
+                </button>
+                <button type="button" class="icon-button play-button">
+                  <span class="material-icons">play_arrow</span>
+                </button>
+              </div>
+            </a>
+          </div>
+
+          <div>
+            <a href="#">
+              <div class="list-item-title">Never going home</div>
+              <div class="list-item-actions">
+                <button type="button" class="icon-button favorite-button ">
+                  <span class="material-icons">playlist_add</span>
+                </button>
+                <button type="button" class="icon-button play-button">
+                  <span class="material-icons">play_arrow</span>
+                </button>
+              </div>
+            </a>
+          </div>
+
+          <div>
+            <a href="#">
+              <div class="list-item-title">Never going home</div>
+              <div class="list-item-actions">
+                <button type="button" class="icon-button favorite-button ">
+                  <span class="material-icons">playlist_add</span>
+                </button>
+                <button type="button" class="icon-button play-button">
+                  <span class="material-icons">play_arrow</span>
+                </button>
+              </div>
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+      <!------------------------------------------------------------------------------------------------------------>
+
+      <section id="lyrics-section">
+        <h4>Never going home</h4>
+        <h5>Kungs</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis elit maximus, consequat velit vitae, laoreet felis. Morbi commodo vitae dolor nec scelerisque. Maecenas non urna orci.</p>
+
+      <!------------------------------------------------------------------------------------------------------------>
+    </main>
+
+    <footer>
+      <nav>
+        <a href="#home" class="active">
+          <span class="material-icons">home</span>
+          <span>Home</span>
+        </a>
+        <a href="#player">
+          <span class="material-icons">subscriptions</span>
+          <span>Lecteur</span>
+        </a>
+        <a href="#artists">
+          <span class="material-icons">library_music</span>
+          <span>Musique</span>
+        </a>
+        <a href="#favorites">
+          <span class="material-icons">favorite</span>
+          <span>Favoris</span>
+        </a>
+      </nav>
+    </footer>
+  </body>
+</html>
