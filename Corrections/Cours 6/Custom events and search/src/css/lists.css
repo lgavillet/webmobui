@@ -1,0 +1,113 @@
+/********************************************************************************/
+/* standard list */
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color var(--default-transition);
+
+    &:hover {
+      background-color: var(--secondary-color);
+    }
+
+    &:first-of-type {
+      /* on affiche un border top uniquement sur le premier élément */
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* un lien est optionnellement supporté. Il doit donc prendre toute la place et devenir lui-même une flex box
+    pour agir comme le li de base */
+    a {
+      /* toute la taille dispo du parent */
+      flex: 1;
+
+      /* devent une flex lui-même */
+      display: flex;
+
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .list-item-title {
+      /* le titre prend toute la largeur dispo */
+      flex-grow: 1;
+    }
+  }
+}
+
+/********************************************************************************/
+/* artists list */
+
+artist-list {
+  /* définition en tant que container flex */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 1rem;
+
+  /* si on a un descendant direct qui est en hover, alors ceux qui ne sont pas en hover seront masqués */
+  &:has(> :hover) > :not(:hover) img {
+    opacity: .1;
+  }
+
+  /* on s'assure que ça ne s'applique qu'au type d'élément de premier niveau avec un * pour se permettre d'utiliser les
+  custom element. Autrement, si on gardait des "a", les "*" pourraient être remplacés par des "a" et pas besoin de l'opérateur
+  descendant direct */
+  & > * {
+    /* position relative permet de définir cet élément comme le nouveau point de référence pour les éléments enfants
+    en absolute. Sans cette ligne, "top: 0" sur un enfant serait résolu par rapport au body - en haut à gauche de la page.
+    Avec cette ligne, "top: 0" sur un enfant sera résolu au point de départ du parent
+    */
+    display: block;
+    position: relative;
+    height: 150px;
+    width: 150px;
+    color: #000;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+
+    /* affichage d'un ellipsis */
+    white-space: nowrap; /* les espaces deviennent insécables  */
+    overflow: hidden; /* on cache ce qui dépasse */
+    text-overflow: ellipsis; /* on ajoute un ellipsis si ça dépasse */
+
+    &:hover img {
+      opacity: 0.9;
+      transform: scale(1.1);
+    }
+
+    .artist-list-item-title {
+      /* on affiche en absolute pour pouvoir superposer le titre et l'image */
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      line-height: 150px;
+      text-shadow: 0 0 10px #000;
+    }
+
+    img {
+      /* on affiche en absolute pour pouvoir superposer le titre et l'image */
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      /* l'image va couvrir le parent et ne pas dépasser. A utiliser avec height/width 100%
+      Par défaut, cela va centrer l'image, possible de faire autrement avec object-position: axe-x axe-y */
+      object-fit: cover;
+
+      opacity: 0.4;
+      transition: all 0.5s ease-in-out;
+    }
+  }
+}
