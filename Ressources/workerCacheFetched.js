@@ -1,6 +1,7 @@
 const CACHE_VERSION = '1';
 const CACHE_FILES = [
-
+  // Exemple:
+  // '/images/logo.jpg',
 ];
 
 self.addEventListener('install', event => {
