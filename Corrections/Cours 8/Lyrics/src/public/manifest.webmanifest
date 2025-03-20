@@ -1,0 +1,16 @@
+{
+  "short_name": "Spotlified",
+  "name": "Spotlified - Unleash the JS",
+  "icons": [
+    {
+      "src": "images/logo_spotlified.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#121212",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#121212"
+}
